@@ -358,12 +358,4 @@ public class Final_healthclinic {
 		return false;
 	}
 	
-
-
-
-
-
-
-
-
 }	
