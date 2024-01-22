@@ -358,7 +358,7 @@ public class Final_healthclinic {
 		return false;
 	}
 	
-	 private static void doctor(String enteredUsername, String enteredPassword) {
+    private static void doctor(String enteredUsername, String enteredPassword) {
 			Scanner read = new Scanner(System.in);
 			// Doctor options after login
 			System.out.println("Do you want to enter patient medical info or view personal info?");
@@ -378,7 +378,7 @@ public class Final_healthclinic {
 		}
 	     
 		// doctor option: enter patient medical info
-		private static void enterMedicalInfo() {
+	private static void enterMedicalInfo() {
 				Scanner read = new Scanner(System.in);
 				// Add your logic here for entering patient medical info
 				System.out.println("Enter patient medical information:");
@@ -401,7 +401,7 @@ public class Final_healthclinic {
 				}
 			}
 	    
-		private static boolean isPatientExists(String name) {
+	private static boolean isPatientExists(String name) {
 			try (BufferedReader br = new BufferedReader(new FileReader("patientinfo.txt"))) {
 				String line;
 				while ((line = br.readLine()) != null) {
@@ -420,7 +420,7 @@ public class Final_healthclinic {
 		}
 
 		// doctor option: view personal info
-		private static void viewpersonalinfo(String enteredUsername, String enteredPassword) {
+	private static void viewpersonalinfo(String enteredUsername, String enteredPassword) {
 				BufferedReader br = null;
 				try {
 					br = new BufferedReader(new FileReader("doctorinfo.txt"));
@@ -450,12 +450,81 @@ public class Final_healthclinic {
 				System.out.println("Viewing personal information.");
 			}
 
+	private static void patient(String enteredUsername, String enteredPassword) {
+		Scanner read = new Scanner(System.in);
+		System.out.println("Do you want to view personal info or medical info");
+		String patientOption = read.nextLine().toLowerCase();
 
+		if ("medical info".equals(patientOption)) {
+			viewMedicalInfo(enteredUsername);
+		} else if ("view personal info".equals(patientOption)) {
+			viewPersonalInfopatient(enteredUsername, enteredPassword);
+		} else {
+			System.out.println("Invalid option.");
+		}
+	} 
+	private static void viewPersonalInfopatient(String enteredUsername, String enteredPassword) {
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader("patientinfo.txt"));
+			try {
+				System.out.println("What do you want me to display for you?");
+				String line;
+				while ((line = br.readLine()) != null) {
+					String str[] = line.split(",");
+					String storedUsername = str[0].trim();
+					String storedPassword = str[1].trim();
+					String Passwordentered = getHashPassword(enteredPassword);
+					if (enteredUsername.equals(storedUsername) && Passwordentered.equals(storedPassword) == true) {
+						System.out.println("Personal Information:");
+						System.out.println("Username: " + str[0]);
+						System.out.println("Password: " + str[1]);
+						System.out.println("Age: " + str[2]);
+						System.out.println("Phone Number: " + str[3]);
+						System.out.println("Gender: " + str[4]);
+					}
+					else {
+						System.out.println("error");
+					}
+				}
+			} finally {
+				br.close();
+			}
+		} catch (IOException e) {
+			System.out.println("error");
+		}
+		System.out.println("Viewing personal information.");
+		}
 
-
-
-
-
+	private static void viewMedicalInfo(String enteredUsername) {
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader("pmedicalinfo.txt"));
+			try {
+				System.out.println("your medical info page :) ");
+				String line;
+				while ((line = br.readLine()) != null) {
+					String str[] = line.split(",");
+					String storedUsername = str[0].trim();
+					String storedPassword = str[1].trim();
+					if (enteredUsername.equals(storedUsername) == true) {
+						System.out.println("medical Information:");
+						System.out.println("Username: " + str[0]);
+						System.out.println(" medicalsituation: " + str[1]);
+						System.out.println("medicaltreatment: " + str[2]);
+					}
+					else {
+						System.out.println("error");
+					}
+				}
+			} finally {
+				br.close();
+			}
+		} catch (IOException e) {
+			System.out.println("error");
+		}
+		System.out.println("Viewing personal information.");
+	}
 
 
 }	
