@@ -358,6 +358,98 @@ public class Final_healthclinic {
 		return false;
 	}
 	
+	 private static void doctor(String enteredUsername, String enteredPassword) {
+			Scanner read = new Scanner(System.in);
+			// Doctor options after login
+			System.out.println("Do you want to enter patient medical info or view personal info?");
+			String doctorOption = read.nextLine().toLowerCase();
+			try {
+				if ("medical info".equals(doctorOption)) {
+					enterMedicalInfo();
+				} else if ("view personal info".equals(doctorOption)) {
+					viewpersonalinfo(enteredUsername, enteredPassword);
+				} else {
+					System.out.println("Invalid option.");
+				}
+			}
+			catch (InputMismatchException e) {
+				System.out.println("Input doesn't match");
+			}
+		}
+	     
+		// doctor option: enter patient medical info
+		private static void enterMedicalInfo() {
+				Scanner read = new Scanner(System.in);
+				// Add your logic here for entering patient medical info
+				System.out.println("Enter patient medical information:");
+				System.out.println("Enter name:");
+				String name = read.nextLine();
+				if (isPatientExists(name)) {
+					System.out.println("Enter medical situation:");
+					String medicalsituation = read.nextLine();
+					System.out.println("Enter medical treatment:");
+					String medicaltreatment = read.nextLine();
+					// write registration info to the file
+					try (BufferedWriter bw = new BufferedWriter(new FileWriter("pmedicalinfo.txt", true))) {
+						bw.write(name + "," + medicalsituation + "," + medicaltreatment + "\n");
+						System.out.println("entering medicalinfo done Successfully");
+					} catch (IOException e) {
+						System.out.println("FileNotFound");
+					}
+				} else {
+					System.out.println("patient dosenot exist");
+				}
+			}
+	    
+		private static boolean isPatientExists(String name) {
+			try (BufferedReader br = new BufferedReader(new FileReader("patientinfo.txt"))) {
+				String line;
+				while ((line = br.readLine()) != null) {
+					String[] patientInfo = line.split(",");
+					String storedName = patientInfo[0].trim();
+					
+				 if (name.equalsIgnoreCase(storedName)) {
+					 return true; // Patient found }
+				 }
+					 
+				}
+			} catch (IOException e) {
+				System.out.println("Error reading file: " + e.getMessage());
+			}
+			return false; // Patient not found
+		}
+
+		// doctor option: view personal info
+		private static void viewpersonalinfo(String enteredUsername, String enteredPassword) {
+				BufferedReader br = null;
+				try {
+					br = new BufferedReader(new FileReader("doctorinfo.txt"));
+					try {
+						System.out.println("What do you want me to display for you?");
+						String line;
+						while ((line = br.readLine()) != null) {
+							String str[] = line.split(",");
+							String storedUsername = str[0].trim();
+							String storedPassword = str[1].trim();
+							String Passwordentered = getHashPassword(enteredPassword);
+							if (enteredUsername.equals(storedUsername) && Passwordentered.equals(storedPassword) == true) {
+								System.out.println("Personal Information:");
+								System.out.println("name: " + str[0]);
+								System.out.println("medicalsituation: " + str[1]);
+								System.out.println("medicaltreatment: " + str[2]);
+							} else {
+								System.out.println("error");
+							}
+						}
+					} finally {
+						br.close();
+					}
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+				System.out.println("Viewing personal information.");
+			}
+
 
 
 
