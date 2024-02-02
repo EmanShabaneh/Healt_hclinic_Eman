@@ -14,7 +14,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import secu.exa;
 
-public class Final_healthclinic {
+public class healthclinic3 {
 	private static final int max_loginattempts = 3;
 	private static final int max_usertype = 3;
 	private static final int max_gendertries = 2;
@@ -59,7 +59,7 @@ public class Final_healthclinic {
 		 }
 	}
 }
-	public static boolean logintosystem(String users) {
+	private static boolean logintosystem(String users) {
 	    int loginattempts = 0;
 	    Scanner read = new Scanner(System.in);
 	    
@@ -94,11 +94,11 @@ public class Final_healthclinic {
 	        } catch (Exception e) {
 	            System.out.println("Unexpected error");
 	            mylogger.writeToLog("Exception", e);
-	        } finally {
-	                read.close();
+	    }
+	        finally {
+	        	read.close();
 	        }
 	    }
-	    
 	    System.out.println("Sorry :(, we are exiting ");
 	    return false; // Return false if login attempts are exhausted
 	}	
@@ -129,6 +129,10 @@ public class Final_healthclinic {
 			System.out.println("Error reading file");
 			mylogger.writeToLog("Exception", e);
 		}
+		catch (Exception e) {
+            System.out.println("Unexpected error");
+            mylogger.writeToLog("Exception", e);
+            }
 		return false;
 	}
 	private static boolean checkcredentialspatient(String enteredUsername, String enteredPassword) {
@@ -156,6 +160,11 @@ public class Final_healthclinic {
 		} catch (IOException e) {
 			System.out.println("Error reading file");
 		}
+		catch (Exception e) {
+            System.out.println("Unexpected error");
+            mylogger.writeToLog("Exception", e);
+		}
+		
 		return false;
 	}
 
@@ -204,6 +213,10 @@ public class Final_healthclinic {
 			System.out.println("Input should be an integer");
 			mylogger.writeToLog("Exception", e);
 		}
+		catch (Exception e) {
+            System.out.println("Unexpected error");
+            mylogger.writeToLog("Exception", e);
+            }
 	}
 
 	public static String getgender(Scanner read) {
@@ -224,6 +237,14 @@ public class Final_healthclinic {
 				read.nextLine(); // Consume the invalid input
 				mylogger.writeToLog("Exception", e);
 			}
+			catch (RuntimeException e) {
+				System.out.println("bbb");
+				mylogger.writeToLog("Exception", e);
+			}
+			catch (Exception e) {
+	            System.out.println("Unexpected error");
+	            mylogger.writeToLog("Exception", e);
+	            }
 		}
 		return null;
 	}
@@ -249,7 +270,14 @@ public class Final_healthclinic {
 				read.nextLine(); // Consume the invalid input
 				mylogger.writeToLog("Exception", e);
 			}
-			//number format exception 
+			catch (RuntimeException e) {
+				System.out.println("bbb");
+				mylogger.writeToLog("Exception", e);
+			}
+			catch (Exception e) {
+	            System.out.println("Unexpected error");
+	            mylogger.writeToLog("Exception", e);
+	            }
 		}
 		return 0;
 	}
@@ -271,7 +299,7 @@ public class Final_healthclinic {
 				System.out.println("you should enter an integer number.");
 				read.nextLine(); // Consume the invalid input
 			}
-			catch (NumberFormatException e) {
+			catch (RuntimeException e) {
 				System.out.println("bbb");
 				mylogger.writeToLog("Exception", e);
 			}
@@ -314,6 +342,10 @@ public class Final_healthclinic {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+		 catch (Exception e) {
+				System.out.println("error");
+				mylogger.writeToLog("Exception", e);
+			}
 	}
 
 	private static boolean checkifuserexists(String enteredUsername, String role) {
@@ -334,6 +366,10 @@ public class Final_healthclinic {
 			System.out.println("Error reading file: " + e.getMessage());
 			mylogger.writeToLog("Exception", e);
 		}
+		 catch (Exception e) {
+				System.out.println("error");
+				mylogger.writeToLog("Exception", e);
+			}
 		return false; // User does not exist
 	}
 
@@ -377,6 +413,10 @@ public class Final_healthclinic {
 			System.out.println("Error reading file");
 			mylogger.writeToLog("Exception", e);
 		}
+		 catch (Exception e) {
+				System.out.println("error");
+				mylogger.writeToLog("Exception", e);
+			}
 		return false;
 	}
 	
@@ -399,6 +439,10 @@ public class Final_healthclinic {
 			System.out.println("Input doesn't match");
 			mylogger.writeToLog("Exception", e);
 		}
+		 catch (Exception e) {
+				System.out.println("error");
+				mylogger.writeToLog("Exception", e);
+			}
 	}
    
 	// doctor option: enter patient medical info
@@ -424,6 +468,10 @@ public class Final_healthclinic {
 					System.out.println("FileNotFound");
 					mylogger.writeToLog("Exception", e);
 				}
+				 catch (Exception e) {
+						System.out.println("error");
+						mylogger.writeToLog("Exception", e);
+					}
 			} else {
 				System.out.println("patient dosenot exist");
 			}
@@ -445,6 +493,10 @@ public class Final_healthclinic {
 			System.out.println("Error reading file: " + e.getMessage());
 			mylogger.writeToLog("Exception", e);
 		}
+		 catch (Exception e) {
+				System.out.println("error");
+				mylogger.writeToLog("Exception", e);
+			}
 		return false; // Patient not found
 	}
 
@@ -478,6 +530,10 @@ public class Final_healthclinic {
 			} catch (IOException e) {
 				System.out.println(e);
 			}
+			 catch (Exception e) {
+					System.out.println("error");
+					mylogger.writeToLog("Exception", e);
+				}
 		}
 
 	private static void patient(String enteredUsername, String enteredPassword) {
@@ -525,6 +581,10 @@ public class Final_healthclinic {
 			System.out.println("error");
 			mylogger.writeToLog("Exception", e);
 		}
+		 catch (Exception e) {
+				System.out.println("error");
+				mylogger.writeToLog("Exception", e);
+			}
 		}
 	private static void viewMedicalInfo(String enteredUsername) {
 		BufferedReader br = null;
@@ -555,7 +615,7 @@ public class Final_healthclinic {
 				br.close();
 			}
 		   } 
-		   catch (IOException e) {
+		   catch (Exception e) {
 			System.out.println("error");
 			mylogger.writeToLog("Exception", e);
 		}
